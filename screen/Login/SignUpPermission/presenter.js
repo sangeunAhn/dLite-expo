@@ -44,7 +44,7 @@ const SignUpPermission = props => (
 				zIndex: 1,
 			}}
 			onPress={() => {
-				props.navigation.navigate('Home');
+				props.navigation.goBack();
 			}}
 		>
 			<SafeAreaView>

@@ -67,9 +67,9 @@ const MakeRecordPictures = props => (
 							<>
 								{props.isSubmitting ? (
 									<TouchableOpacity style={styles.addBtn}>
-										<View style={styles.btnText} right={10}>
+										<SafeAreaView>
 											<ActivityIndicator color="black" />
-										</View>
+										</SafeAreaView>
 									</TouchableOpacity>
 								) : (
 										<TouchableOpacity style={styles.addBtn} onPress={props.btnPress}>

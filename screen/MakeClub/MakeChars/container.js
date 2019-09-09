@@ -21,6 +21,10 @@ class Container extends React.Component {
 			allDelBtn: false,
 			idCount: 0,
 		};
+
+		this.props.navigation.addListener('didFocus', async () => {
+			this.setState({ isSubmitting: false });
+		});
 	}
 
 	render() {
@@ -40,9 +44,8 @@ class Container extends React.Component {
 	componentWillMount = () => {
 		BackHandler.addEventListener('hardwareBackPress', this._handleBackButtonClick);
 
-		if (this.props.navigation.getParam('from', 'NO-ID') == 'm') {
-			this._getChars();
-		}
+		this._getChars();
+
 		this.setState({
 			text: '',
 			chars: [],
@@ -119,7 +122,7 @@ class Container extends React.Component {
 			};
 			return { ...newState };
 		});
-		console.log(this.state.count)
+		console.log(this.state.count);
 	};
 
 	_addChar = char => {
@@ -150,18 +153,17 @@ class Container extends React.Component {
 	_screenPress = async () => {
 		const chars = this.state.chars;
 		await this.setState({ chars: {} });
-		this.setState({ chars })
+		this.setState({ chars });
 	};
 
 	_buttonPress = () => {
 		const { navigation } = this.props;
 		this.setState({ isSubmitting: true });
 		var userNo = navigation.getParam('userNo', 'NO-ID');
+		this._updateClubChars();
 		if (this.props.navigation.getParam('from', 'NO-ID') == 'm') {
-			this._modifySetClubChars();
 			navigation.goBack();
 		} else {
-			this._setClubChars();
 			navigation.navigate('MakeRecord', {
 				userNo: userNo,
 			});
@@ -193,7 +195,7 @@ class Container extends React.Component {
 		});
 	};
 
-	_modifySetClubChars = async () => {
+	_updateClubChars = async () => {
 		const { navigation } = this.props;
 		const { chars } = this.state;
 		const t = this;
@@ -207,12 +209,9 @@ class Container extends React.Component {
 	};
 
 	_handleBackButtonClick = () => {
-		this.props.navigation.getParam('from', 'NO-ID') == 'm'
-			? this.props.navigation.goBack()
-			: this.props.navigation.navigate('Login');
+		this.props.navigation.goBack();
 		return true;
 	};
-
 }
 
 export default Container;

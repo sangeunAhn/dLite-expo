@@ -16,8 +16,9 @@ import ConfirmButtonN from '../../../components/Button/ConfirmButtonN';
 import { Ionicons } from '@expo/vector-icons';
 import HeaderScrollView from 'react-native-header-scroll-view';
 import { getStatusBarHeight, ifIphoneX } from 'react-native-iphone-x-helper';
-import DatePicker from 'react-native-datepicker'
-import { CheckBox } from 'react-native-elements'
+import DatePicker from 'react-native-datepicker';
+import { CheckBox } from 'react-native-elements';
+import SchoolPicker from '../../../components/SignUp/SchoolPicker';
 
 const { width, height } = Dimensions.get('window');
 
@@ -26,301 +27,265 @@ const SignUp = props => (
 		{props.isGetting == false && props.navigation.getParam('from', 'NO-ID') == 'm' ? (
 			<ActivityIndicator size="large" style={styles.activityIndicator} />
 		) : (
-				<View style={styles.container}>
-					<TouchableOpacity
-						style={styles.backBtn}
-						onPress={() => {
-							props.navigation.goBack();
-						}}
-					>
-						<SafeAreaView>
-							<Ionicons name="ios-arrow-back" size={width * 0.08} color="black" />
-						</SafeAreaView>
-					</TouchableOpacity>
-					<HeaderScrollView
-						headerContainerStyle={{
-							justifyContent: 'center',
-							alignItems: 'center',
-							...ifIphoneX({ paddingTop: 18 }, { paddingTop: 0 }),
-							height: Platform.OS === 'ios' ? height * 0.1 : height * 0.08,
-						}}
-						headlineStyle={{
-							height: height * 0.1,
-							textAlign: 'center',
-							justifyContent: 'center',
-							alignItems: 'center',
-							alignSelf: 'center',
-							fontSize: width * 0.05,
-							paddingTop: Platform.OS === 'ios' ? height * 0.055 : height * 0.048,
-						}}
-						headerComponentContainerStyle={{
-							justifyContent: 'center',
-							alignItems: 'center',
-							height: height * 0.08,
-						}}
-						titleStyle={{
-							// paddingTop: Platform.OS === 'ios' ? 15 : 0,
-							color: '#3B3B3B',
-							fontSize: width * 0.09,
-						}}
-						fadeDirection="up"
-						title="회원가입"
-					>
-						<View style={styles.blank} />
+			<View style={styles.container}>
+				<TouchableOpacity
+					style={styles.backBtn}
+					onPress={() => {
+						props.navigation.goBack();
+					}}
+				>
+					<SafeAreaView>
+						<Ionicons name="ios-arrow-back" size={width * 0.08} color="black" />
+					</SafeAreaView>
+				</TouchableOpacity>
+				<HeaderScrollView
+					headerContainerStyle={{
+						justifyContent: 'center',
+						alignItems: 'center',
+						...ifIphoneX({ paddingTop: 18 }, { paddingTop: 0 }),
+						height: Platform.OS === 'ios' ? height * 0.1 : height * 0.08,
+					}}
+					headlineStyle={{
+						height: height * 0.1,
+						textAlign: 'center',
+						justifyContent: 'center',
+						alignItems: 'center',
+						alignSelf: 'center',
+						fontSize: width * 0.05,
+						paddingTop: Platform.OS === 'ios' ? height * 0.055 : height * 0.048,
+					}}
+					headerComponentContainerStyle={{
+						justifyContent: 'center',
+						alignItems: 'center',
+						height: height * 0.08,
+					}}
+					titleStyle={{
+						// paddingTop: Platform.OS === 'ios' ? 15 : 0,
+						color: '#3B3B3B',
+						fontSize: width * 0.09,
+					}}
+					fadeDirection="up"
+					title="회원가입"
+				>
+					<View style={styles.blank} />
 
-						<View style={styles.containerFromClubName}>
-							<View style={styles.block}>
-								<Text
-									style={[
-										styles.text,
-										{
-											color: props.isFocused ? '#000000' : '#8d97a5',
-										},
-									]}
-								>
-									ID
+					<View style={styles.containerFromClubName}>
+						<View style={styles.block}>
+							<Text
+								style={[
+									styles.text,
+									{
+										color: props.isFocused ? '#000000' : '#8d97a5',
+									},
+								]}
+							>
+								ID
 							</Text>
-								<TextInput
-									onFocus={props.handleFocus}
-									onBlur={props.id.length == 0 ? props.handleBlur : null}
-									style={[
-										styles.input,
-										{
-											borderColor: props.isFocused ? '#DCDCDC' : null,
-											shadowColor: props.isFocused ? '#E1E1E1' : null, // IOS
-											shadowOffset: props.isFocused ? { height: 1.5, width: 0 } : null, // IOS
-											shadowOpacity: props.isFocused ? 5 : null, // IOS
-											shadowRadius: props.isFocused ? 3 : null, // IOS
-											elevation: props.isFocused ? 1.5 : null, // IOS
-										},
-									]}
-									onChangeText={props.idChange}
-									maxLength={20}
-									value={props.id}
-									autoCorrect={false}
-									autoCapitalize={'none'}
-								/>
-							</View>
-
-							<View style={styles.block}>
-								<Text
-									style={[
-										styles.text,
-										{
-											color: props.isFocused1 ? '#000000' : '#8d97a5',
-										},
-									]}
-								>
-									비밀번호
-							</Text>
-								<TextInput
-								secureTextEntry={true}
-									onFocus={props.handleFocus1}
-									onBlur={props.password.length == 0 ? props.handleBlur1 : null}
-									style={[
-										styles.input,
-										{
-											borderColor: props.isFocused1 ? '#DCDCDC' : null,
-											shadowColor: props.isFocused1 ? '#E1E1E1' : null, // IOS
-											shadowOffset: props.isFocused1 ? { height: 1.5, width: 0 } : null, // IOS
-											shadowOpacity: props.isFocused1 ? 5 : null, // IOS
-											shadowRadius: props.isFocused1 ? 3 : null, // IOS
-											elevation: props.isFocused1 ? 1.5 : null, // IOS
-										},
-									]}
-									onChangeText={props.pwChange}
-									maxLength={20}
-									value={props.password}
-									autoCorrect={false}
-									autoCapitalize={'none'}
-								/>
-							</View>
-
-							<View style={styles.block}>
-								<Text
-									style={[
-										styles.text,
-										{
-											color: props.isFocused2 ? '#000000' : '#8d97a5',
-										},
-									]}
-								>
-									비밀번호 확인
-							</Text>
-								<TextInput
-								secureTextEntry={true}
-									onFocus={props.handleFocus2}
-									onBlur={props.password2.length == 0 ? props.handleBlur2 : null}
-									style={[
-										styles.input,
-										{
-											borderColor: props.isFocused2 ? '#DCDCDC' : null,
-											shadowColor: props.isFocused2 ? '#E1E1E1' : null, // IOS
-											shadowOffset: props.isFocused2 ? { height: 1.5, width: 0 } : null, // IOS
-											shadowOpacity: props.isFocused2 ? 5 : null, // IOS
-											shadowRadius: props.isFocused2 ? 3 : null, // IOS
-											elevation: props.isFocused2 ? 1.5 : null, // IOS
-										},
-									]}
-									onChangeText={props.pw2Change}
-									maxLength={20}
-									value={props.password2}
-									autoCorrect={false}
-									autoCapitalize={'none'}
-								/>
-							</View>
-
-							<View style={styles.block}>
-								<Text
-									style={[
-										styles.text,
-										{
-											color: props.isFocused3 ? '#000000' : '#8d97a5',
-										},
-									]}
-								>
-									이메일
-							</Text>
-								<TextInput
-									onFocus={props.handleFocus3}
-									onBlur={props.email.length == 0 ? props.handleBlur3 : null}
-									style={[
-										styles.input,
-										{
-											borderColor: props.isFocused3 ? '#DCDCDC' : null,
-											shadowColor: props.isFocused3? '#E1E1E1' : null, // IOS
-											shadowOffset: props.isFocused3 ? { height: 1.5, width: 0 } : null, // IOS
-											shadowOpacity: props.isFocused3 ? 5 : null, // IOS
-											shadowRadius: props.isFocused3 ? 3 : null, // IOS
-											elevation: props.isFocused3 ? 1.5 : null, // IOS
-										},
-									]}
-									onChangeText={props.emailChange}
-									maxLength={20}
-									value={props.email}
-									autoCorrect={false}
-									autoCapitalize={'none'}
-								/>
-							</View>
-
-							<View style={styles.block}>
-								<Text
-									style={[
-										styles.text,
-										{
-											color: props.isFocused ? '#000000' : '#8d97a5',
-										},
-									]}
-								>
-									생년월일
-							</Text>
-								<DatePicker
-									style={{ width: 200 }}
-									date={props.date}
-									mode="date"
-									placeholder="select date"
-									format="YYYY-MM-DD"
-									minDate="1930-01-01"
-									maxDate="2010-01-01"
-									confirmBtnText="확인"
-									cancelBtnText="취소"
-									customStyles={{
-										
-										dateInput: {
-											
-											borderColor:'transparent'
-										}
-										// ... You can check the source to find the other keys.
-									}}
-									onDateChange={props.dateChange}
-								/>
-								
-							</View>
-							<View style={styles.block}>
-								<Text
-									style={[
-										styles.text,
-										{
-											color: props.isFocused ? '#000000' : '#8d97a5',
-										},
-									]}
-								>
-									성별
-							</Text>
-							<View style={{flexDirection:'row'}}>
-							<CheckBox  containerStyle={{marginLeft:'-2%',borderColor:'transparent'}} left title="남자" onPress={props.genderPress} checked={props.gender} /> 
-							<CheckBox  containerStyle={{marginLeft:'-2%',borderColor:'transparent'}} left title="여자" onPress={props.genderPress} checked={!props.gender} />
-							</View>
-							</View>
-							<View style={styles.block}>
-								<Text
-									style={[
-										styles.text,
-										{
-											color: props.isFocused ? '#000000' : '#8d97a5',
-										},
-									]}
-								>
-									대학교
-							</Text>
-								<TextInput
-									onFocus={props.handleFocus}
-									onBlur={props.school.length == 0 ? props.handleBlur : null}
-									style={[
-										styles.input,
-										{
-											borderColor: props.isFocused ? '#DCDCDC' : null,
-											shadowColor: props.isFocused ? '#E1E1E1' : null, // IOS
-											shadowOffset: props.isFocused ? { height: 1.5, width: 0 } : null, // IOS
-											shadowOpacity: props.isFocused ? 5 : null, // IOS
-											shadowRadius: props.isFocused ? 3 : null, // IOS
-											elevation: props.isFocused ? 1.5 : null, // IOS
-										},
-									]}
-									onChangeText={props.schoolChange}
-									maxLength={20}
-									value={props.school}
-									autoCorrect={false}
-									autoCapitalize={'none'}
-								/>
-							</View>
-							<View style={styles.block}>
-								<Text
-									style={[
-										styles.text,
-										{
-											color: props.isFocused ? '#000000' : '#8d97a5',
-										},
-									]}
-								>
-									학생증 인증
-							</Text>
-								<TouchableOpacity style={styles.Picture} onPress={props.pickPicture}>
-									<Image
-										style={styles.PhotoAddMainPicture}
-										source={require('../../../images/photoAdd.png')}
-									/>
-									{props.picture == null ||
-										props.picture == 'ul' ||
-										props.picture == '' ? (
-											<View style={styles.pictureImage}>
-												{props.pictureLoading ? <ActivityIndicator size="large" /> : null}
-											</View>
-										) : (
-											props.picture && (
-												<Image
-													style={styles.pictureImage}
-													source={{ uri: props.picture }}
-												/>
-											)
-										)}
-								</TouchableOpacity>
-							</View>
+							<TextInput
+								onFocus={props.handleFocus}
+								onBlur={props.id.length == 0 ? props.handleBlur : null}
+								style={[
+									styles.input,
+									{
+										borderColor: props.isFocused ? '#DCDCDC' : null,
+										shadowColor: props.isFocused ? '#E1E1E1' : null, // IOS
+										shadowOffset: props.isFocused ? { height: 1.5, width: 0 } : null, // IOS
+										shadowOpacity: props.isFocused ? 5 : null, // IOS
+										shadowRadius: props.isFocused ? 3 : null, // IOS
+										elevation: props.isFocused ? 1.5 : null, // IOS
+									},
+								]}
+								onChangeText={props.idChange}
+								maxLength={20}
+								value={props.id}
+								autoCorrect={false}
+								autoCapitalize={'none'}
+							/>
 						</View>
 
+						<View style={styles.block}>
+							<Text
+								style={[
+									styles.text,
+									{
+										color: props.isFocused1 ? '#000000' : '#8d97a5',
+									},
+								]}
+							>
+								비밀번호
+							</Text>
+							<TextInput
+								secureTextEntry={true}
+								onFocus={props.handleFocus1}
+								onBlur={props.password.length == 0 ? props.handleBlur1 : null}
+								style={[
+									styles.input,
+									{
+										borderColor: props.isFocused1 ? '#DCDCDC' : null,
+										shadowColor: props.isFocused1 ? '#E1E1E1' : null, // IOS
+										shadowOffset: props.isFocused1 ? { height: 1.5, width: 0 } : null, // IOS
+										shadowOpacity: props.isFocused1 ? 5 : null, // IOS
+										shadowRadius: props.isFocused1 ? 3 : null, // IOS
+										elevation: props.isFocused1 ? 1.5 : null, // IOS
+									},
+								]}
+								onChangeText={props.pwChange}
+								maxLength={20}
+								value={props.password}
+								autoCorrect={false}
+								autoCapitalize={'none'}
+							/>
+						</View>
+
+						<View style={styles.block}>
+							<Text
+								style={[
+									styles.text,
+									{
+										color: props.isFocused2 ? '#000000' : '#8d97a5',
+									},
+								]}
+							>
+								비밀번호 확인
+							</Text>
+							<TextInput
+								secureTextEntry={true}
+								onFocus={props.handleFocus2}
+								onBlur={props.password2.length == 0 ? props.handleBlur2 : null}
+								style={[
+									styles.input,
+									{
+										borderColor: props.isFocused2 ? '#DCDCDC' : null,
+										shadowColor: props.isFocused2 ? '#E1E1E1' : null, // IOS
+										shadowOffset: props.isFocused2 ? { height: 1.5, width: 0 } : null, // IOS
+										shadowOpacity: props.isFocused2 ? 5 : null, // IOS
+										shadowRadius: props.isFocused2 ? 3 : null, // IOS
+										elevation: props.isFocused2 ? 1.5 : null, // IOS
+									},
+								]}
+								onChangeText={props.pw2Change}
+								maxLength={20}
+								value={props.password2}
+								autoCorrect={false}
+								autoCapitalize={'none'}
+							/>
+						</View>
+
+						<View style={styles.block}>
+							<Text
+								style={[
+									styles.text,
+									{
+										color: props.isFocused3 ? '#000000' : '#8d97a5',
+									},
+								]}
+							>
+								이메일
+							</Text>
+							<TextInput
+								onFocus={props.handleFocus3}
+								onBlur={props.email.length == 0 ? props.handleBlur3 : null}
+								style={[
+									styles.input,
+									{
+										borderColor: props.isFocused3 ? '#DCDCDC' : null,
+										shadowColor: props.isFocused3 ? '#E1E1E1' : null, // IOS
+										shadowOffset: props.isFocused3 ? { height: 1.5, width: 0 } : null, // IOS
+										shadowOpacity: props.isFocused3 ? 5 : null, // IOS
+										shadowRadius: props.isFocused3 ? 3 : null, // IOS
+										elevation: props.isFocused3 ? 1.5 : null, // IOS
+									},
+								]}
+								onChangeText={props.emailChange}
+								maxLength={20}
+								value={props.email}
+								autoCorrect={false}
+								autoCapitalize={'none'}
+							/>
+						</View>
+
+						<View style={styles.block}>
+							<Text
+								style={[
+									styles.text,
+									{
+										color: props.isFocused ? '#000000' : '#8d97a5',
+									},
+								]}
+							>
+								생년월일
+							</Text>
+							<DatePicker
+								style={{ width: 200 }}
+								date={props.date}
+								mode="date"
+								placeholder="select date"
+								format="YYYY-MM-DD"
+								minDate="1930-01-01"
+								maxDate="2010-01-01"
+								confirmBtnText="확인"
+								cancelBtnText="취소"
+								customStyles={{
+									dateInput: {
+										borderColor: 'transparent',
+									},
+									// ... You can check the source to find the other keys.
+								}}
+								onDateChange={props.dateChange}
+							/>
+						</View>
+						<View style={styles.block}>
+							<Text
+								style={[
+									styles.text,
+									{
+										color: props.isFocused ? '#000000' : '#8d97a5',
+									},
+								]}
+							>
+								성별
+							</Text>
+							<View style={{ flexDirection: 'row' }}>
+								<CheckBox
+									containerStyle={{ marginLeft: '-2%', borderColor: 'transparent' }}
+									left
+									title="남자"
+									onPress={props.genderPress}
+									checked={props.gender}
+								/>
+								<CheckBox
+									containerStyle={{ marginLeft: '-2%', borderColor: 'transparent' }}
+									left
+									title="여자"
+									onPress={props.genderPress}
+									checked={!props.gender}
+								/>
+							</View>
+						</View>
+						<View style={styles.block}>
+							<Text
+								style={[
+									styles.text,
+									{
+										color: props.isFocused ? '#000000' : '#8d97a5',
+									},
+								]}
+							>
+								대학교
+							</Text>
+							<View style={styles.schoolPicker}>
+								<SchoolPicker schoolChange={props.schoolChange} />
+							</View>
+						</View>
+					</View>
 
 					<View style={styles.button}>
-						{props.id == '' || props.password == '' || props.password2 == '' || props.email == '' || props.school == '' || props.picture == null ? (
+						{props.id == '' ||
+						props.password == '' ||
+						props.password2 == '' ||
+						props.email == '' ||
+						props.school == '' ||
+						props.picture == null ? (
 							<ConfirmButtonN buttonColor={'#CEE1F2'} titleColor={'#BBBBBB'} title={'확인'} />
 						) : props.isSubmitting ? (
 							<ConfirmButton buttonColor={'#ADCDE9'} titleColor={'#3B3B3B'} title={'로딩'} />
@@ -446,7 +411,11 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		height: height * 0.112,
 	},
-
+	schoolPicker: {
+		width: width*0.5,
+		// backgroundColor: 'blue',
+		top: -20
+	}
 });
 
 export default SignUp;

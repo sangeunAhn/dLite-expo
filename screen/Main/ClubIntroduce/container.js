@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { BackHandler } from 'react-native';
+import { BackHandler, Image, Dimensions } from 'react-native';
 import * as axios from 'axios';
 import ClubIntroduce from './presenter';
+
+const { width, height } = Dimensions.get('window');
 
 class Container extends Component {
 	static navigationOptions = {
@@ -20,11 +22,14 @@ class Container extends Component {
 			clubChar: [],
 			isGetting1: false,
 			isGetting2: false,
+			isImageViewVisible: false,
+			imageViewIndex: 0,
+			imgWidth: 0,
 		};
 	}
 
 	render() {
-		return <ClubIntroduce {...this.state} {...this.props} />;
+		return <ClubIntroduce {...this.state} {...this.props} imageViewVisible1={this._imageViewVisible1} imageViewVisible2={this._imageViewVisible2} />;
 	}
 
 	componentWillMount = () => {
@@ -36,15 +41,20 @@ class Container extends Component {
 		var clubLogo = navigation.getParam('clubLogo', 'NO-ID');
 		var clubMainPicture = navigation.getParam('clubMainPicture', 'NO-ID');
 		this.setState({
-			clubLogo: clubLogo,
-			clubMainPicture: clubMainPicture,
+			clubLogo,
+			clubMainPicture,
 		});
 
+		Image.getSize(clubMainPicture, (width, height) => {
+			// calculate image width and height 
+			const screenWidth = Dimensions.get('window').width
+			this.setState({imgWidth: screenWidth})
+		  })
 	};
 
 	componentWillUnmount() {
 		BackHandler.removeEventListener('hardwareBackPress', this._handleBackButtonClick);
-	  }
+	}
 
 	_getDatas = async () => {
 		const t = this;
@@ -68,22 +78,19 @@ class Container extends Component {
 	};
 
 	_setDatas = response => {
-
 		var str = JSON.stringify(response.data.message.clubPhoneNumber);
 		var clubPhoneNumber = str.substring(1, str.length - 1);
-		clubPhoneNumber = clubPhoneNumber.replace(/\\n/gi,"\n")
+		clubPhoneNumber = clubPhoneNumber.replace(/\\n/gi, '\n');
 		this.setState({
 			clubPhoneNumber: clubPhoneNumber,
 		});
 
 		var str = JSON.stringify(response.data.message.clubIntroduce);
 		var clubIntroduce = str.substring(1, str.length - 1);
-		clubIntroduce = clubIntroduce.replace(/\\n/gi,"\n")
+		clubIntroduce = clubIntroduce.replace(/\\n/gi, '\n');
 		this.setState({
 			clubIntroduce: clubIntroduce,
 		});
-
-		
 	};
 
 	//특성 가져오기
@@ -115,12 +122,19 @@ class Container extends Component {
 			});
 	};
 
-
 	_handleBackButtonClick = () => {
 		this.props.navigation.goBack();
 
 		return true;
-	  }
+	};
+
+	_imageViewVisible1 = () => {
+		this.setState({ isImageViewVisible: true, imageViewIndex: 0 });
+	};
+
+	_imageViewVisible2 = () => {
+		this.setState({ isImageViewVisible: true, imageViewIndex: 1 });
+	};
 }
 
 export default Container;

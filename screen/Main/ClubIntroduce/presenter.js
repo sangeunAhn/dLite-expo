@@ -9,17 +9,41 @@ import {
 	ScrollView,
 	ActivityIndicator,
 	TouchableOpacity,
-	SafeAreaView
+	SafeAreaView,
 } from 'react-native';
 import IntroduceChars from '../../../components/Char/IntroduceChars';
 import HeaderScrollView from 'react-native-header-scroll-view';
 import { Ionicons } from '@expo/vector-icons';
-import { getStatusBarHeight,ifIphoneX  } from 'react-native-iphone-x-helper'
+import { getStatusBarHeight, ifIphoneX } from 'react-native-iphone-x-helper';
+import ImageView from 'react-native-image-view';
+import FastImage from 'react-native-fast-image'
 
 const { width, height } = Dimensions.get('window');
 
 const ClubIntroduce = props => (
 	<>
+		<ImageView
+			images={[
+				{
+					source: {
+						uri: props.clubMainPicture,
+					},
+					title: '메인사진',
+					width: width,
+					height: props.imgHeight
+				},
+				{
+					source: {
+						uri: props.clubLogo,
+					},
+					title: '로고사진',
+					width: width,
+					height: width
+				},
+			]}
+			imageIndex={props.imageViewIndex}
+			isVisible={props.isImageViewVisible}
+		/>
 		{props.isGetting1 && props.isGetting2 ? (
 			<View style={styles.container}>
 				<TouchableOpacity
@@ -34,9 +58,10 @@ const ClubIntroduce = props => (
 				</TouchableOpacity>
 				<HeaderScrollView
 					headerContainerStyle={{
-						justifyContent: 'center', alignItems: 'center', ...ifIphoneX({ paddingTop: 18 }, { paddingTop: 0 }), height: Platform.OS === 'ios'
-							? height * 0.1
-							: height * 0.08
+						justifyContent: 'center',
+						alignItems: 'center',
+						...ifIphoneX({ paddingTop: 18 }, { paddingTop: 0 }),
+						height: Platform.OS === 'ios' ? height * 0.1 : height * 0.08,
 					}}
 					headlineStyle={{
 						height: height * 0.1,
@@ -63,23 +88,23 @@ const ClubIntroduce = props => (
 					<View style={styles.blank} />
 					<Text style={styles.text1}>동아리 로고, 메인 사진</Text>
 
-					<View style={styles.MainPictureView}>
+					<TouchableOpacity style={styles.MainPictureView} onPress={props.imageViewVisible1}>
 						{props.clubMainPicture === null || props.clubMainPicture == '' ? (
 							<View style={styles.clubMainPicture} />
 						) : (
-								<Image style={styles.clubMainPicture} source={{ uri: props.clubMainPicture }} />
-							)}
-					</View>
+							<Image style={styles.clubMainPicture} source={{ uri: props.clubMainPicture }} />
+						)}
+					</TouchableOpacity>
 
 					<View style={styles.logoView1}>
 						{
-							<View style={styles.logoView2}>
+							<TouchableOpacity style={styles.logoView2} onPress={props.imageViewVisible2}>
 								{props.clubLogo === null || props.clubLogo == '' ? (
 									<Image style={styles.clubLogo} />
 								) : (
-										<Image style={styles.clubLogo} source={{ uri: props.clubLogo }} />
-									)}
-							</View>
+									<Image style={styles.clubLogo} source={{ uri: props.clubLogo }} />
+								)}
+							</TouchableOpacity>
 						}
 					</View>
 
@@ -103,9 +128,7 @@ const ClubIntroduce = props => (
 						<View style={styles.block}>
 							<Text style={styles.text}>동아리 소개</Text>
 							<View style={styles.input}>
-								<Text style={styles.textIn}>
-									{props.clubIntroduce}
-								</Text>
+								<Text style={styles.textIn}>{props.clubIntroduce}</Text>
 							</View>
 						</View>
 
@@ -119,8 +142,8 @@ const ClubIntroduce = props => (
 				</HeaderScrollView>
 			</View>
 		) : (
-				<ActivityIndicator size="large" style={styles.activityIndicator} />
-			)}
+			<ActivityIndicator size="large" style={styles.activityIndicator} />
+		)}
 	</>
 );
 
@@ -130,7 +153,7 @@ const styles = StyleSheet.create({
 		width: width * 0.2,
 		height: height * 0.1,
 		top: Platform.OS === 'ios' ? 30 : 15,
-		left: width*0.028,
+		left: width * 0.028,
 		zIndex: 1,
 	},
 	container: {
@@ -143,32 +166,31 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	blank: {
-
 		width: width,
-		height: height * 0.03
+		height: height * 0.03,
 	},
 	MainPictureView: {
 		alignItems: 'center',
-		marginTop: height*0.007,
+		marginTop: height * 0.007,
 		marginHorizontal: width * 0.05,
 	},
 	logoView1: {
 		alignItems: 'center',
-		top: -height*0.036,
+		top: -height * 0.036,
 		zIndex: 1,
 	},
 	logoView2: {
-		width: height*0.14,
-		height: height*0.14,
-		top: -height*0.036,
+		width: height * 0.14,
+		height: height * 0.14,
+		top: -height * 0.036,
 		zIndex: 1,
-		borderRadius: height*0.14 * 0.5,
+		borderRadius: height * 0.14 * 0.5,
 	},
 	clubLogo: {
 		backgroundColor: '#ADCDE9',
-		width: height*0.14,
-		height: height*0.14,
-		borderRadius: height*0.14 * 0.5,
+		width: height * 0.14,
+		height: height * 0.14,
+		borderRadius: height * 0.14 * 0.5,
 	},
 	input: {
 		borderRadius: 8,
@@ -183,7 +205,6 @@ const styles = StyleSheet.create({
 		marginTop: 5,
 	},
 	text: {
-
 		color: '#ADCDE9',
 		fontSize: width * 0.06,
 		fontWeight: 'bold',

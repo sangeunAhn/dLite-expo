@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, TextInput, Dimensions, Text, Platform, SafeAreaView } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from 'react-native-vector-icons';
 import { TextField } from 'react-native-material-textfield';
 import MainButton from '../../../components/Button/MainButton';
 import LoginButton from '../../../components/Button/LoginButton';

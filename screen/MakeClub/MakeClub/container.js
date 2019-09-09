@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Alert } from 'react-native';
 import * as axios from 'axios';
-import * as ImagePicker from 'expo-image-picker'
-import * as Permissions from 'expo-permissions'
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
 import MakeClub from './presenter';
 
 class Container extends Component {
@@ -22,37 +22,42 @@ class Container extends Component {
 			prevClubMainPicture: null,
 			userNo: '',
 			isGetting: false,
-            isSubmitting: false,
-            isFocused: false,
-            isFocused1: false,
-            isFocused2: false,
+			isSubmitting: false,
+			isFocused: false,
+			isFocused1: false,
+			isFocused2: false,
 			isFocused3: false,
 			logoLoading: false,
 			mainPictureLoading: false,
 		};
+
+		this.props.navigation.addListener('didFocus', async () => {
+			this.setState({ isSubmitting: false });
+		});
 	}
 
 	render() {
-        return <MakeClub 
-                    {...this.state} 
-                    {...this.props} 
-                    pickLogo={this._pickLogo}
-					pickMainPicture={this._pickMainPicture}
-					pickPoster={this._pickPoster}
-                    btnPress={this._btnPress}
-                    setPrevClubKind={this._setPrevClubKind}
-                    clubNameChange={this._clubNameChange}
-                    clubIntroduceChange={this._clubIntroduceChange}
-                    clubPhoneNumberChange={this._clubPhoneNumberChange}
-                    handleFocus={this._handleFocus}
-                    handleBlur={this._handleBlur}
-                    handleFocus1={this._handleFocus1}
-                    handleBlur1={this._handleBlur1}
-                    handleFocus2={this._handleFocus2}
-                    handleBlur2={this._handleBlur2}
-                    handleFocus3={this._handleFocus3}
-                    handleBlur3={this._handleBlur3}
-                />;
+		return (
+			<MakeClub
+				{...this.state}
+				{...this.props}
+				pickLogo={this._pickLogo}
+				pickMainPicture={this._pickMainPicture}
+				btnPress={this._btnPress}
+				setPrevClubKind={this._setPrevClubKind}
+				clubNameChange={this._clubNameChange}
+				clubIntroduceChange={this._clubIntroduceChange}
+				clubPhoneNumberChange={this._clubPhoneNumberChange}
+				handleFocus={this._handleFocus}
+				handleBlur={this._handleBlur}
+				handleFocus1={this._handleFocus1}
+				handleBlur1={this._handleBlur1}
+				handleFocus2={this._handleFocus2}
+				handleBlur2={this._handleBlur2}
+				handleFocus3={this._handleFocus3}
+				handleBlur3={this._handleBlur3}
+			/>
+		);
 	}
 
 	componentWillMount = async () => {
@@ -83,27 +88,27 @@ class Container extends Component {
 		var str = JSON.stringify(response.data.message.clubName);
 		var clubName = str.substring(1, str.length - 1);
 		await this.setState({
-			clubName
+			clubName,
 		});
 
 		var str = JSON.stringify(response.data.message.clubKind);
 		var clubKind = str.substring(1, str.length - 1);
 		await this.setState({
-			clubKind
+			clubKind,
 		});
 
 		var str = JSON.stringify(response.data.message.clubPhoneNumber);
 		var clubPhoneNumber = str.substring(1, str.length - 1);
-		clubPhoneNumber = clubPhoneNumber.replace(/\\n/gi,"\n")
+		clubPhoneNumber = clubPhoneNumber.replace(/\\n/gi, '\n');
 		await this.setState({
-			clubPhoneNumber
+			clubPhoneNumber,
 		});
 
 		var str = JSON.stringify(response.data.message.clubIntroduce);
 		var clubIntroduce = str.substring(1, str.length - 1);
-		clubIntroduce = clubIntroduce.replace(/\\n/gi,"\n")
+		clubIntroduce = clubIntroduce.replace(/\\n/gi, '\n');
 		await this.setState({
-			clubIntroduce
+			clubIntroduce,
 		});
 
 		var str = JSON.stringify(response.data.message.clubLogo);
@@ -126,8 +131,8 @@ class Container extends Component {
 	// 로고 가져오기
 	_pickLogo = async () => {
 		setTimeout(() => {
-			this.setState({logoLoading: true})
-		}, 1000)
+			this.setState({ logoLoading: true });
+		}, 1000);
 		const permissions = Permissions.CAMERA_ROLL;
 		const { status } = await Permissions.askAsync(permissions);
 
@@ -139,16 +144,16 @@ class Container extends Component {
 			if (!result.cancelled) {
 				this.setState({ clubLogo: result.uri });
 			} else {
-				this.setState({logoLoading: false})
+				this.setState({ logoLoading: false });
 			}
-		} 
+		}
 	};
 
 	// 메인사진 가져오기
 	_pickMainPicture = async () => {
 		setTimeout(() => {
-			this.setState({mainPictureLoading: true})
-		}, 1000)
+			this.setState({ mainPictureLoading: true });
+		}, 1000);
 		const permissions = Permissions.CAMERA_ROLL;
 		const { status } = await Permissions.askAsync(permissions);
 
@@ -160,31 +165,31 @@ class Container extends Component {
 			if (!result.cancelled) {
 				this.setState({ clubMainPicture: result.uri });
 			} else {
-				this.setState({mainPictureLoading: false})
+				this.setState({ mainPictureLoading: false });
 			}
 		}
 	};
-	_pickPoster = async () => {
-		setTimeout(() => {
-			this.props.changeAddLoading();
-		}, 1000)
-		
-		const permissions = Permissions.CAMERA_ROLL;
-		const { status } = await Permissions.askAsync(permissions);
 
-		if (status === 'granted') {
-			let result = await ImagePicker.launchImageLibraryAsync({
-				quality: 0.4,
+	_notUpdate = () => {
+		const { navigation } = this.props;
+		var getUserNo = navigation.getParam('userNo', 'NO-ID');
+		getUserNo = getUserNo.replace(/[^0-9]/g, '');
+		const t = this;
+		axios
+			.post('http://dkstkdvkf00.cafe24.com/php/MakeClub/GetClubExist.php', {
+				userNo: getUserNo,
+			})
+			.then(function(response) {
+				result = response.data.message;
+
+				if (result === 'true') {
+					t._updatRegister();
+				} else {
+					t._insertRegister();
+				}
 			});
-
-			if (!result.cancelled) {
-				await this.props.addImage(result.uri);
-				this.props.changeAddLoading();
-			} else {
-				this.props.changeAddLoading();
-			}
-		}
 	};
+
 	// 처음 가입
 	_insertRegister = async () => {
 		//userNo 가지고 오기
@@ -194,14 +199,7 @@ class Container extends Component {
 		getUserNo = getUserNo.replace(/[^0-9]/g, '');
 		getSchool = getSchool.substring(1, getSchool.length - 1);
 
-		const {
-			clubName,
-			clubKind,
-			clubPhoneNumber,
-			clubIntroduce,
-			clubLogo,
-			clubMainPicture,
-		} = this.state;
+		const { clubName, clubKind, clubPhoneNumber, clubIntroduce, clubLogo, clubMainPicture } = this.state;
 
 		if (clubName == '' || clubPhoneNumber == '' || clubIntroduce == '') {
 			Alert.alert('내용을 채워주세요');
@@ -249,14 +247,7 @@ class Container extends Component {
 		var getUserNo = navigation.getParam('userNo', 'NO-ID');
 		getUserNo = getUserNo.replace(/[^0-9]/g, '');
 
-		const {
-			clubName,
-			clubKind,
-			clubPhoneNumber,
-			clubIntroduce,
-			clubLogo,
-			clubMainPicture,
-		} = this.state;
+		const { clubName, clubKind, clubPhoneNumber, clubIntroduce, clubLogo, clubMainPicture } = this.state;
 
 		if (clubName == '' || clubPhoneNumber == '' || clubIntroduce == '') {
 			Alert.alert('내용을 채워주세요');
@@ -289,8 +280,14 @@ class Container extends Component {
 					'content-type': 'multipart/form-data',
 				},
 			});
-
-			this.props.navigation.goBack();
+			if (this.props.navigation.getParam('from', 'NO-ID') == 'm'){
+				this.props.navigation.goBack();
+			} else {
+				this.props.navigation.navigate('MakeChars', {
+					userNo: getUserNo,
+				});
+			}
+			
 		}
 	};
 
@@ -316,30 +313,30 @@ class Container extends Component {
 			await this._updatRegister();
 			this._deleteImages();
 		} else {
-			this._insertRegister();
+			this._notUpdate();
 		}
 	};
 
 	_setPrevClubKind = clubKind => {
 		this.setState({ clubKind });
-    };
-    
-    _clubNameChange = clubName => {
-        this.setState({ clubName })
-    }
+	};
 
-    _clubIntroduceChange = clubIntroduce => {
-        this.setState({ clubIntroduce })
-    }
+	_clubNameChange = clubName => {
+		this.setState({ clubName });
+	};
 
-    _clubPhoneNumberChange = clubPhoneNumber => {
-        this.setState({ clubPhoneNumber })
-    }
+	_clubIntroduceChange = clubIntroduce => {
+		this.setState({ clubIntroduce });
+	};
 
-    // 테두리 색 변경 효과
+	_clubPhoneNumberChange = clubPhoneNumber => {
+		this.setState({ clubPhoneNumber });
+	};
+
+	// 테두리 색 변경 효과
 	_handleFocus = () => this.setState({ isFocused: true });
-    _handleBlur = () => this.setState({ isFocused: false });
-    
+	_handleBlur = () => this.setState({ isFocused: false });
+
 	_handleFocus1 = () => this.setState({ isFocused1: true });
 	_handleBlur1 = () => this.setState({ isFocused1: false });
 
@@ -347,8 +344,7 @@ class Container extends Component {
 	_handleBlur2 = () => this.setState({ isFocused2: false });
 
 	_handleFocus3 = () => this.setState({ isFocused3: true });
-    _handleBlur3 = () => this.setState({ isFocused3: false });
-    
+	_handleBlur3 = () => this.setState({ isFocused3: false });
 }
 
 export default Container;

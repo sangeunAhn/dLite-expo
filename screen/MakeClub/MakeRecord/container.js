@@ -134,7 +134,6 @@ class Container extends React.Component {
 				var school = response.data.message.school;
 				t.props.navigation.navigate('Main', {
 					schoolName: school,
-					makeClub: 'done'
 				});
 			});
 	};
@@ -154,11 +153,7 @@ class Container extends React.Component {
 	};
 
 	_handleBackButtonClick = () => {
-		this.props.navigation.getParam('from', 'NO-ID') == 'm'
-		?
-		this.props.navigation.goBack()
-		:
-		this.props.navigation.navigate('Login');
+		this.props.navigation.goBack();
 
 		return true;
 	  }

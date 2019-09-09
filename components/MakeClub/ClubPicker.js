@@ -7,7 +7,7 @@ const { width, height } = Dimensions.get('window');
 class ClubPicker extends Component {
 	state = { user: '' };
 	state = {
-		icon: <AntDesign name="bars" size={height*0.035} color="#0A6EFF" />,
+		icon: <AntDesign name="bars" size={height * 0.035} color="#0A6EFF" />,
 	};
 	updateUser = user => {
 		this.setState({ user: user });
@@ -17,7 +17,12 @@ class ClubPicker extends Component {
 	render() {
 		return (
 			<View>
-				<Picker mode="dropdown" selectedValue={this.state.user} onValueChange={this.updateUser}>
+				<Picker
+					style={width > 900 ? { transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] } : null}
+					mode="dropdown"
+					selectedValue={this.state.user}
+					onValueChange={this.updateUser}
+				>
 					<Picker.Item label="예술 공연" value="예술 공연" />
 					<Picker.Item label="예술 교양" value="예술 교양" />
 					<Picker.Item label="체육 구기" value="체육 구기" />

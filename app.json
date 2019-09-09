@@ -15,7 +15,7 @@
       "backgroundColor": "#FAFAFA",
       "translucent": false
     },
-    "version": "1.0.5",
+    "version": "1.0.8",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -33,7 +33,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.korea.pinkravvit",
       "infoPlist": {
-        "NSPhotoLibraryUsageDescription":"사용자의 앨범의 사진을 불러오며, 앱에 사진을 게시하는데에 사용됩니다."
+        "NSPhotoLibraryUsageDescription": "사용자의 앨범의 사진을 불러오며, 앱에 사진을 게시하는데에 사용됩니다.",
+        "NSCameraUsageDescription": "사용자가 촬영한 사진을 불러오며, 앱에 사진을 게시하는데에 사용됩니다."
       }
     },
     "android": {

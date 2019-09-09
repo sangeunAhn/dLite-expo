@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Schools from './presenter';
+import { Alert } from 'react-native';
 
 class Container extends React.Component {
 	static navigationOptions = {
@@ -10,7 +11,7 @@ class Container extends React.Component {
 		super(props);
 	}
 	render() {
-		return <Schools {...this.props} AAPress={this._AAPress} BBPress={this._BBPress} CCPress={this._CCPress} />;
+		return <Schools {...this.props} AAPress={this._AAPress} BBPress={this._BBPress} CCPress={this._CCPress} onSwipeRight={this._onSwipeRight} />;
 	}
 
 	_AAPress = () => {
@@ -30,6 +31,7 @@ class Container extends React.Component {
 			schoolName: 'CC대학교',
 		});
 	};
+
 }
 
 export default Container;

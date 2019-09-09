@@ -1,18 +1,9 @@
 import React, { Component } from 'react';
-import {
-	StyleSheet,
-	Dimensions,
-	View,
-	TouchableOpacity,
-	Platform,
-	BackHandler,
-	SafeAreaView
-} from 'react-native';
+import { StyleSheet, Dimensions, View, TouchableOpacity, Platform, BackHandler, SafeAreaView } from 'react-native';
 import ClubDiv from '../../../components/Main/ClubDiv';
 import HeaderScrollView from 'react-native-header-scroll-view';
-import { Ionicons } from '@expo/vector-icons';
-import { getStatusBarHeight,ifIphoneX  } from 'react-native-iphone-x-helper'
-
+import { Ionicons } from 'react-native-vector-icons';
+import { getStatusBarHeight, ifIphoneX } from 'react-native-iphone-x-helper';
 
 const { width, height } = Dimensions.get('window');
 
@@ -41,9 +32,7 @@ export default class Main extends React.Component {
 	}
 
 	_handleBackButtonClick = () => {
-		this.props.navigation.getParam('makeClub', 'NO-ID') == 'done'
-			? this.props.navigation.navigate('Home')
-			: this.props.navigation.goBack();
+		this.props.navigation.goBack();
 		return true;
 	};
 
@@ -65,16 +54,25 @@ export default class Main extends React.Component {
 				</TouchableOpacity>
 				<HeaderScrollView
 					headerContainerStyle={{
-						justifyContent: 'center', alignItems: 'center', ...ifIphoneX({paddingTop:18},{paddingTop:0}), height: Platform.OS === 'ios'
-							? height * 0.1
-							: height * 0.08
+						justifyContent: 'center',
+						alignItems: 'center',
+						...ifIphoneX({ paddingTop: 18 }, { paddingTop: 0 }),
+						height: Platform.OS === 'ios' ? height * 0.1 : height * 0.08,
 					}}
 					headlineStyle={{
-						height: height * 0.1, textAlign: 'center', justifyContent: 'center', alignItems: 'center',
-						alignSelf: 'center', fontSize: width * 0.05,
-						paddingTop: Platform.OS === 'ios' ? height * 0.055 : height * 0.048
+						height: height * 0.1,
+						textAlign: 'center',
+						justifyContent: 'center',
+						alignItems: 'center',
+						alignSelf: 'center',
+						fontSize: width * 0.05,
+						paddingTop: Platform.OS === 'ios' ? height * 0.055 : height * 0.048,
 					}}
-					headerComponentContainerStyle={{ justifyContent: 'center', alignItems: 'center', height: height * 0.08 }}
+					headerComponentContainerStyle={{
+						justifyContent: 'center',
+						alignItems: 'center',
+						height: height * 0.08,
+					}}
 					titleStyle={{
 						// paddingTop: Platform.OS === 'ios' ? 15 : 0,
 						color: '#3B3B3B',
