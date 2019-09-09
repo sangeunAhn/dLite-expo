@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import ConfirmButton from '../../../components/Button/ConfirmButton';
 import ConfirmButtonN from '../../../components/Button/ConfirmButtonN';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from 'react-native-vector-icons';
 import HeaderScrollView from 'react-native-header-scroll-view';
 import { getStatusBarHeight, ifIphoneX } from 'react-native-iphone-x-helper';
 import DatePicker from 'react-native-datepicker';

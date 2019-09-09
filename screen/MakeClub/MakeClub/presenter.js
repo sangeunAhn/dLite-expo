@@ -16,7 +16,7 @@ import ConfirmButton from '../../../components/Button/ConfirmButton';
 import ClubPicker from '../../../components/MakeClub/ClubPicker';
 import ClubPickerM from '../../../components/MakeClub/ClubPickerM';
 import ConfirmButtonN from '../../../components/Button/ConfirmButtonN';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from 'react-native-vector-icons';
 import HeaderScrollView from 'react-native-header-scroll-view';
 import { getStatusBarHeight, ifIphoneX } from 'react-native-iphone-x-helper';
 import AutoHeightImage from 'react-native-auto-height-image';

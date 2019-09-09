@@ -13,7 +13,7 @@ import {
 import { scale, moderateScale, verticalScale } from '../../../components/Scaling';
 import PhotoRegister from '../../../components/Photo/PhotoRegister';
 import PhotoModify from '../../../components/Photo/PhotoModify';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from 'react-native-vector-icons';
 import HeaderScrollView from 'react-native-header-scroll-view';
 import PhotoLoading from '../../../components/Photo/PhotoLoding';
 import { getStatusBarHeight, ifIphoneX } from 'react-native-iphone-x-helper'

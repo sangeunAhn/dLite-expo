@@ -4,7 +4,7 @@ import RecordButtonN from '../../../components/Button/RecordButtonN';
 import RecordButton from '../../../components/Button/RecordButton';
 import MasonryList from 'react-native-masonry-list';
 import HeaderScrollView from 'react-native-header-scroll-view';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from 'react-native-vector-icons';
 import { getStatusBarHeight, ifIphoneX } from 'react-native-iphone-x-helper'
 
 const { width, height } = Dimensions.get('window');

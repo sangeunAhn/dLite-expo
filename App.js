@@ -2,7 +2,6 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import Home from './screen/Home/Home';
-import Code from './screen/Home/Code';
 import Schools from './screen/Home/Schools';
 import MakeClub from './screen/MakeClub/MakeClub';
 import MakeChars from './screen/MakeClub/MakeChars';
@@ -23,9 +22,6 @@ const RootStack = createStackNavigator(
 	{
 		Home: {
 			screen: Home,
-		},
-		Code: {
-			screen: Code,
 		},
 		Schools: {
 			screen: Schools,

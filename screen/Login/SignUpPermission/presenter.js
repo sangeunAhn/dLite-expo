@@ -17,7 +17,7 @@ import ConfirmButton from '../../../components/Button/ConfirmButton';
 import ConfirmButtonN from '../../../components/Button/ConfirmButtonN';
 import { TextField } from 'react-native-material-textfield';
 import HeaderScrollView from 'react-native-header-scroll-view';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from 'react-native-vector-icons';
 import { getStatusBarHeight, ifIphoneX } from 'react-native-iphone-x-helper'
 import LoginButton from '../../../components/Button/LoginButton';
 import LoginButtonN from '../../../components/Button/LoginButtonN';

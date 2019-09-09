@@ -42,6 +42,7 @@
     "react-native-iphone-x-helper": "^1.2.1",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
     "react-native-lightbox": "^0.8.0",
+    "react-native-linear-gradient": "^2.5.6",
     "react-native-mail": "^4.0.0",
     "react-native-masonry-list": "^2.13.0",
     "react-native-material-textfield": "^0.12.0",
