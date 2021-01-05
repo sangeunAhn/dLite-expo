@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.5.5",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "base64-img": "^1.0.4",
