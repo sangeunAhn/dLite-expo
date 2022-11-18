@@ -15,7 +15,7 @@
     "buffer": "^5.2.1",
     "exp": "^57.2.1",
     "expo": "^33.0.0",
-    "expo-cli": "^3.0.10",
+    "expo-cli": "^6.0.8",
     "expo-image-picker": "~5.0.2",
     "expo-linear-gradient": "~5.0.1",
     "expo-mail-composer": "^6.0.0",
